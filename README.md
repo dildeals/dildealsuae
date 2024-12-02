@@ -1,0 +1,1 @@
+dildeals Static Content
