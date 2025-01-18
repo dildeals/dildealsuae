@@ -19,17 +19,12 @@ jobs:
           echo "Installing dependencies..."
           pip install pdf2image tesseract
 
-      # Install poppler
-      - name: Install poppler
-        run: |
-          echo "Installing poppler..."
-          sudo apt-get install poppler-utils
-
       # Generate images from PDFs
       - name: Generate images
         run: |
+          import pdf2image
           for file in $(find . -name "*.pdf"); do
-            output="$(pdf2image --format png --order 1 "$file")"
+            output="$(pdf2image --format jpeg --order 1 "$file")"
             mkdir -p "${output%/*}"
             echo "Generating image from ${file##*/}: $output" >> "${output%/*}/image.png"
           done
