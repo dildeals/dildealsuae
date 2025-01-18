@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           echo "Installing dependencies..."
-          pip install --upgrade pip pdf2image tesseract pyPDF2
+          pip install --upgrade pip pdf2image
 
       # Generate images from PDFs
       - name: Generate images
