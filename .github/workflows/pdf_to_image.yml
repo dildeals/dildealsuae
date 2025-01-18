@@ -9,13 +9,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Install dependencies
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      # Install Tesseract-OCR and PyPDF2
       - name: Install dependencies
         run: |
-          pip install --upgrade pip pdf2image tesseract-ocr pyPDF2
+          echo "Installing dependencies..."
+          pip install --upgrade pip pdf2image tesseract-ocr==5.1.0 pyPDF2
 
+      # Generate images from PDFs
       - name: Generate images
         run: |
           for file in $(find . -name "*.pdf"); do
@@ -24,7 +28,8 @@ jobs:
             echo "Generating image from ${file##*/}: $output" >> "${output%/*}/image.png"
           done
 
-      - name: Upload images to GitHub repository
+      # Upload images to GitHub repository
+      - name: Upload images
         run: |
           git checkout master
           git add .
