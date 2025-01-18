@@ -17,7 +17,13 @@ jobs:
       - name: Install dependencies
         run: |
           echo "Installing dependencies..."
-          pip install --upgrade pip pdf2image
+          pip install pdf2image tesseract-ocr pypdf2
+
+      # Install poppler
+      - name: Install poppler
+        run: |
+          echo "Installing poppler..."
+          sudo apt-get install poppler-utils
 
       # Generate images from PDFs
       - name: Generate images
