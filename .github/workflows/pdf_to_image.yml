@@ -1,0 +1,32 @@
+name: pdf_to_images
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip pdf2image tesseract-ocr pyPDF2
+
+      - name: Generate images
+        run: |
+          for file in $(find . -name "*.pdf"); do
+            output="$(pdf2image --format png --order 1 "$file")"
+            mkdir -p "${output%/*}"
+            echo "Generating image from ${file##*/}: $output" >> "${output%/*}/image.png"
+          done
+
+      - name: Upload images to GitHub repository
+        run: |
+          git checkout master
+          git add .
+          git commit -m "Auto-generated PDF to image files"
+          git push origin main
