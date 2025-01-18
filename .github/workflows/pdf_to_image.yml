@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           echo "Installing dependencies..."
-          pip install --upgrade pip pdf2image tesseract-ocr==4.0.0 pyPDF2
+          pip install --upgrade pip pdf2image tesseract-ocr pyPDF2
 
       # Generate images from PDFs
       - name: Generate images
