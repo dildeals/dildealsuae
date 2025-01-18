@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           echo "Installing dependencies..."
-          pip install pdf2image tesseract-ocr pypdf2 leptonica
+          pip install pdf2image tesseract
 
       # Install poppler
       - name: Install poppler
