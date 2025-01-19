@@ -29,8 +29,9 @@ jobs:
         run: |
           python test.py
 
-      - name: Upload images to GitHub (optional)
-        uses: actions/upload-artifact@v3
-        with:
-          name: output-images
-          path: /tmp/output_images
+      - name: Upload images
+        run: |
+          git checkout master
+          git add .
+          git commit -m "Auto-generated PDF to image files"
+          git push origin main
