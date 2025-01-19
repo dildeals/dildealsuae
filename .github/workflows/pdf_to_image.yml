@@ -21,6 +21,10 @@ jobs:
         run: |
           pip install pdf2image Pillow
 
+      - name: Install poppler
+        run: |
+          sudo apt-get install poppler-utils
+
       - name: Run script
         run: |
           python test.py
