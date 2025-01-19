@@ -36,4 +36,4 @@ jobs:
           git checkout -b test
           git add .
           git commit -m "Auto-generated PDF to image files"
-          git push
+          git push --set-upstream origin test
