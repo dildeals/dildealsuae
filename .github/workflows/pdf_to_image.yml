@@ -31,6 +31,8 @@ jobs:
 
       - name: Upload images
         run: |
+          git config --global user.email "adnaankhalil@hotmail.com"
+          git config --global user.name "Adnan Khalil"
           git checkout -b test
           git add .
           git commit -m "Auto-generated PDF to image files"
