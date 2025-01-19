@@ -1,4 +1,4 @@
-name: pdf_to_images
+name: PDF to Image
 
 on:
   push:
@@ -9,30 +9,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Install dependencies
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      # Install Tesseract-OCR and PyPDF2
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
       - name: Install dependencies
         run: |
-          echo "Installing dependencies..."
-          pip install pdf2image tesseract
+          pip install pdf2image Pillow
 
-      # Generate images from PDFs
-      - name: Generate images
+      - name: Run script
         run: |
-          import pdf2image
-          for file in $(find . -name "*.pdf"); do
-            output="$(pdf2image --format jpeg --order 1 "$file")"
-            mkdir -p "${output%/*}"
-            echo "Generating image from ${file##*/}: $output" >> "${output%/*}/image.png"
-          done
+          python test.py
 
-      # Upload images to GitHub repository
-      - name: Upload images
-        run: |
-          git checkout master
-          git add .
-          git commit -m "Auto-generated PDF to image files"
-          git push origin main
+      - name: Upload images to GitHub (optional)
+        uses: actions/upload-artifact@v3
+        with:
+          name: output-images
+          path: /tmp/output_images
